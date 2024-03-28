@@ -39,8 +39,8 @@ const postDetails=(pic)=>{
            const data=new FormData();
            data.append("file",pic);
            data.append("upload_preset","Chat-app");
-           data.append("cloud_name","dvrr4ah5w");
-           fetch("https://api.cloudinary.com/v1_1/dvrr4ah5w/image/upload",{
+           data.append("cloud_name",process.env.CLOUD_NAME);
+           fetch(process.env.APP_BASE_URL,{
              method:'post',
              body:data,
            }).then((res)=>res.json())
@@ -102,7 +102,7 @@ const submitHandler=async()=>{
                     },
 
                 };
-    console.log("hello");
+    
         const {data}=await axios.post("/api/user",{name,email,password,pic},config);
 console.log(data);
 

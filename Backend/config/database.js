@@ -9,7 +9,7 @@ const connectDB=async()=>{
             
         });
         
-        console.log("MongoDB Connected:".yellow, conn.connection.host.cyan);
+        // console.log("MongoDB Connected:".yellow, conn.connection.host.cyan);
 
     }
     catch(error){
