@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { ChatState } from '../Context/ChatProvider';
+import { ChatState, useChatState } from '../Context/ChatProvider';
 import { Stack, useToast } from '@chakra-ui/react';
 import axios from "axios";
 import { Box,Button,Text } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import ChatLoading from './ChatLoading';
 import { getSender } from './config/ChatLogics';
-const MyChats = () => {
+import GroupChatModel from './miscelleneous/GroupChatModel';
+const MyChats = ({fetchAgain}) => {
   const [loggedUser,setLoggedUser]=useState();
-  const {user,setSelectedChat,selectedChat ,chats,setChats}=ChatState();
+  const {user,setSelectedChat,selectedChat ,chats,setChats}=useChatState();
   const toast=useToast();
   const fetchChats=async()=>{
     try{
@@ -21,7 +22,12 @@ const MyChats = () => {
         };
         const {data}= await axios.get("/api/chat",config);
         console.log(data);
-        setChats(data);
+              
+        if (Array.isArray(data)) {
+          setChats(data);
+        } else {
+          throw new Error("Data is not an array");
+        }
     }catch(error){
      toast({
        title:"Error occured !",
@@ -37,7 +43,7 @@ const MyChats = () => {
 useEffect(()=>{
   setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
   fetchChats();
-},[]);
+},[fetchAgain]);
 
 
   return (
@@ -64,13 +70,17 @@ useEffect(()=>{
         color="black"
       >
           MyChats
-          <Button 
+      <GroupChatModel>
+      <Button 
              display="flex"
              fontSize={{base:"17px" , md:"10px", lg:"17px"}}
             rightIcon={<AddIcon/>}
           >
               New Group Chat
           </Button>
+      </GroupChatModel>
+
+       
 
       </Box>
           <Box
@@ -84,8 +94,8 @@ useEffect(()=>{
            overflowY="hidden"
           >
             {
-                chats ? (
-                    <Stack overflowY='scroll'>
+              chats && Array.isArray(chats) ? (
+                    <Stack overflowY="scroll">
                      {chats.map((chat)=>(
                         <Box
                           onClick={()=>setSelectedChat(chat)}

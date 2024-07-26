@@ -1,16 +1,16 @@
 import React, { useEffect} from 'react';
 
-import { ChatState } from '../Context/ChatProvider';
+import { ChatState, useChatState } from '../Context/ChatProvider';
 import { Box } from '@chakra-ui/react';
 import SideDrawer from '../components/miscelleneous/SideDrawer';
 import ChatBox from '../components/ChatBox';
 import MyChats from '../components/MyChats';
-
+import { useState } from 'react';
 const Chatpage = () => {
 
-  const {user}=ChatState();
+  const {user}=useChatState();
 
- 
+ const [fetchAgain,setFetchAgain]=useState(false);
  
 
 return (
@@ -24,8 +24,8 @@ return (
        p="10px"
        color="white"
    >
-          {user&&<MyChats/>}
-          {user&&<ChatBox/>}
+          {user&&<MyChats fetchAgain={fetchAgain}/>}
+          {user&&<ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
   </Box>
      
 

@@ -12,18 +12,18 @@ import React, { useState} from 'react'
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useNavigate } from 'react-router-dom';
 import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons'
-import { ChatState } from '../../Context/ChatProvider';
+import { ChatState, useChatState } from '../../Context/ChatProvider';
 import ProfileModel from './ProfileModel';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
 import axios from 'axios';
-import { set } from 'mongoose';
+
 const SideDrawer = () => {
       const [search,setSearch]=useState("");
       const [searchResult,setSearchResult]=useState([]);
       const [loading,setLoading]=useState(false);
       const [loadingChat,setLoadingChat]=useState();
-      const {user,setSelectedChat,chats,setChats}=ChatState();
+      const {user,setSelectedChat,chats,setChats}=useChatState();
       const navigate=useNavigate();
      const {isOpen,onOpen,onClose}=useDisclosure();
      const btnRef = React.useRef();
@@ -206,7 +206,7 @@ const SideDrawer = () => {
           }
      
    {
-    loading && <Spinner ml="auto" display="flex"/>
+    loadingChat && <Spinner ml="auto" display="flex"/>
    }
     
   </DrawerBody>

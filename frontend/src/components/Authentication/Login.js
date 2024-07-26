@@ -36,6 +36,7 @@ const Login = () => {
                 "Content-type":"application/json",
               },
             };
+            console.log("Sending request with data:", { email, password }); 
            const {data}=await axios.post("api/user/login",
                {email,password},
                config
