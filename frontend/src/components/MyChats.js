@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ChatState, useChatState } from '../Context/ChatProvider';
+import { useChatState } from '../Context/ChatProvider';
 import { Stack, useToast } from '@chakra-ui/react';
 import axios from "axios";
 import { Box,Button,Text } from '@chakra-ui/react';
@@ -69,7 +69,7 @@ useEffect(()=>{
         alignItems="center"
         color="black"
       >
-          MyChats
+          My Chats
       <GroupChatModel>
       <Button 
              display="flex"
