@@ -8,18 +8,42 @@ const chatRoutes=require("./routes/chatRoutes");
 const messageRoutes=require("./routes/messageRoutes");
 const {notFound,errorHandler}=require("./middleware/errorMiddleware");
 const app=express();
+const path=require("path");
 dotenv.config();
 connectDB();
 const PORT=process.env.PORT||5000;
-app.get('/',(req,res)=>{
-         res.send("api is running");
-});
+
 app.use(express.json());
 
 
 app.use('/api/user',userRoutes);
 app.use("/api/chat",chatRoutes);
 app.use("/api/message",messageRoutes);
+
+// -------------------------------------------
+
+
+const __dirname1 = path.resolve();
+
+if(process.env.NODE_ENV==='development'){
+   
+  app.use(express.static(path.join(__dirname1,"/frontend/build")));
+  
+  app.get("*",(req,res)=>{
+    res.sendFile(path.resolve(__dirname1,"frontend","build","index.html"));
+  });
+
+
+}else{
+  app.get('/',(req,res)=>{
+    res.send("api is running");
+});
+}
+
+
+
+
+// --------------------------------------
 app.use(notFound);
 app.use(errorHandler);
 const server=app.listen(PORT,console.log(`Server started on port 5000`.yellow));
