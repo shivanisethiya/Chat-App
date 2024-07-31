@@ -31,7 +31,7 @@ const Homepage = () => {
            borderWidth="1px"
          >
             <Text  fontSize='4xl' fontFamily="work sans" color="white" textAlign="center">
-                Talk-A-Tive
+                Let's Talk
             </Text> 
          </Box>
 

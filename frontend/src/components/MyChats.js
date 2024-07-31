@@ -21,7 +21,7 @@ const MyChats = ({fetchAgain}) => {
          },
         };
         const {data}= await axios.get("/api/chat",config);
-        console.log(data);
+        // console.log(data);
               
         if (Array.isArray(data)) {
           setChats(data);
