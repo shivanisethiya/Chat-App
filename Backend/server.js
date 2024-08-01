@@ -44,6 +44,7 @@ if(process.env.NODE_ENV==='development'){
 
 
 // --------------------------------------
+app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
 app.use(notFound);
 app.use(errorHandler);
 const server=app.listen(PORT,console.log(`Server started on port 5000`.yellow));
