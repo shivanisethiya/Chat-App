@@ -12,7 +12,7 @@ const path=require("path");
 dotenv.config();
 connectDB();
  
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -20,6 +20,9 @@ app.use(express.json());
 app.use('/api/user',userRoutes);
 app.use("/api/chat",chatRoutes);
 app.use("/api/message",messageRoutes);
+// app.get('/',(req,res)=>{
+//       res.send("api is running");
+//   });
 
 // -------------------------------------------
 
@@ -45,7 +48,7 @@ if(process.env.NODE_ENV==='development'){
 
 
 // --------------------------------------
-app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
 app.use(notFound);
 app.use(errorHandler);
 const server=app.listen(PORT,console.log(`Server started on port 5000`.yellow));
